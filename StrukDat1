@@ -1,0 +1,74 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+struct Peserta {
+    string nama;
+    string nomor;
+    bool jenis_kelamin;
+    int umur;
+};
+
+const int MAX_PESERTA = 10;
+
+void tampilkanData(const Peserta data[], int jumlahData) {
+    cout << "Data Peserta:\n";
+    for (int i = 0; i < jumlahData; ++i) {
+        cout << "Nama: " << data[i].nama << endl;
+        cout << "Nomor: " << data[i].nomor << endl;
+        cout << "Jenis Kelamin: " << (data[i].jenis_kelamin ? "Laki-laki" : "Perempuan") << endl;
+        cout << "Umur: " << data[i].umur << " tahun" << endl;
+        cout << "-------------------" << endl;
+    }
+}
+
+void tambahData(Peserta data[], int& jumlahData) {
+    if (jumlahData < MAX_PESERTA) {
+        Peserta newPeserta;
+        cout << "Masukkan Nama: ";
+        cin.ignore();
+        getline(cin, newPeserta.nama);
+        cout << "Masukkan Nomor: ";
+        getline(cin, newPeserta.nomor);
+        cout << "Masukkan Jenis Kelamin (1 untuk Laki-laki, 0 untuk Perempuan): ";
+        cin >> newPeserta.jenis_kelamin;
+        cout << "Masukkan Umur: ";
+        cin >> newPeserta.umur;
+        data[jumlahData] = newPeserta;
+        ++jumlahData;
+        cout << "Data Peserta berhasil ditambahkan!\n";
+    } else {
+        cout << "Data Peserta sudah penuh, tidak bisa menambahkan lagi.\n";
+    }
+}
+
+int main() {
+    Peserta dataPeserta[MAX_PESERTA];
+    int jumlahData = 0;
+
+    while (true) {
+        cout << "Menu:\n";
+        cout << "1. Tampilkan data Peserta\n";
+        cout << "2. Tambah data Peserta baru\n";
+        cout << "0. Keluar\n";
+
+        int pilihan;
+        cin >> pilihan;
+
+        switch (pilihan) {
+            case 1:
+                tampilkanData(dataPeserta, jumlahData);
+                break;
+            case 2:
+                tambahData(dataPeserta, jumlahData);
+                break;
+            case 0:
+                return 0;
+            default:
+                cout << "Pilihan tidak valid. Silakan coba lagi.\n";
+        }
+    }
+
+    return 0;
+}
